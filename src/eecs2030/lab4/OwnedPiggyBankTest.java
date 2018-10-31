@@ -1,20 +1,19 @@
 package eecs2030.lab4;
 
-import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.Timeout;
+import org.junit.runners.MethodSorters;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import org.junit.Test;
-import org.junit.rules.Timeout;
-import org.junit.runners.MethodSorters;
-
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OwnedPiggyBankTest {
@@ -429,6 +428,7 @@ public class OwnedPiggyBankTest {
 	
 	@Test
 	public void test08l_removeCoins() {
+	    // total 682
 		List<Coin> coins = Arrays.asList(Coin.PENNY, Coin.PENNY,  
 				Coin.NICKEL, Coin.NICKEL, 
 				Coin.DIME, Coin.DIME,
@@ -459,6 +459,17 @@ public class OwnedPiggyBankTest {
 		List<Coin> got = b.removeCoins(new Owner("Selina"), 1);
 		assertEquals("removeCoins allowed a non-owner to remove coins", new ArrayList<Coin>(), got);
 	}
+
+	@Test
+    public void test08n_removeCoins() {
+	    // not equal
+        List<Coin> coins = Arrays.asList(Coin.PENNY);
+        Owner w = new Owner("Lola");
+        OwnedPiggyBank b = new OwnedPiggyBank(w);
+        b.add(coins);
+        List<Coin> got = b.removeCoins(w, 2);
+        assertEquals("removeCoins removes coin don't meet the requirement", new ArrayList<Coin>(), got);
+    }
 	
 	@Test
 	public void test09a_deepCopy() {
@@ -496,4 +507,12 @@ public class OwnedPiggyBankTest {
 		assertEquals("deepCopy returned the wrong list of coins",
 				coins, got);
 	}
+
+	public int sumCoins(List<Coin> coins){
+	    int result = 0;
+	    for (Coin c : coins) {
+	        result += c.getValue();
+        }
+	    return result;
+    }
 }

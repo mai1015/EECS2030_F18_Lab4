@@ -1,6 +1,8 @@
 package eecs2030.lab4;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A class representing a piggy bank that has an owner. 
@@ -20,7 +22,6 @@ public class OwnedPiggyBank {
 	 */
 
 	private List<Coin> coins;
-
 
 	/**
 	 * The owner of this pigyg bank.
@@ -163,7 +164,11 @@ public class OwnedPiggyBank {
 				list.add(copy.remove(i--));
 			}
 		}
-		coins = copy;
+		// check if we can get the right amount
+		if (current == 0) coins = copy;
+		else {
+			list.clear();
+		}
 		return list;
 	}
 
