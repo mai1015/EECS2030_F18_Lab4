@@ -126,8 +126,8 @@ public class OwnedPiggyBank {
 	 */
 	public Coin remove(Owner user, Coin coin) {
 		if (!user.equals(owner)) return null;
-		int i;
-		if ((i = coins.indexOf(coin)) != -1) {
+		int i = coins.indexOf(coin);
+		if (i != -1) {
 			return coins.remove(i);
 		}
 		return null;
